@@ -15,7 +15,7 @@ batch_size = 5
 learning_rate = 1e-2
 # Discount factor reward
 discount_factor = 0.99
-# Input dimensions - left, right, left-angle, right-angle 
+# Input dimensions - left, right, left-angle, right-angle
 input_dimensions = 4
 
 # A note on Tensorflow placeholders vs variables.
@@ -97,7 +97,7 @@ with tf.Session() as sess:
 
         # Rendering is slow. Let's not do so until the network
         # has learned fairly well
-        if reward_sum / batch_size > 100 or rendering == True:
+        if reward_sum / batch_size > 100 or rendering is True:
             env.render()
             rendering = True
 
@@ -131,7 +131,8 @@ with tf.Session() as sess:
             # compute discounted reward in reverse cronological order
             discounted_epr = discount_rewards(epr)
 
-            # Size the rewards to be unit normal to reduce gradient estimator variance
+            # Size the rewards to be unit normal to reduce gradient
+            # estimator variance
             discounted_epr -= np.mean(discounted_epr)
             discounted_epr /= np.std(discounted_epr)
 
@@ -149,10 +150,8 @@ with tf.Session() as sess:
             if epoch % batch_size == 0:
                 sess.run(
                     update_grads,
-                    feed_dict={
-                        W1Grad: grad_buffer[0],
-                        W2Grad: grad_buffer[1]
-                    })
+                    feed_dict={W1Grad: grad_buffer[0],
+                               W2Grad: grad_buffer[1]})
                 for ix, grad in enumerate(grad_buffer):
                     grad_buffer[ix] = grad * 0
 
