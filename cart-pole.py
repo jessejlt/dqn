@@ -1,8 +1,5 @@
 import numpy as np
-import _pickle as cPickle
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import math
 import gym
 
 env = gym.make('CartPole-v0')
@@ -18,7 +15,7 @@ batch_size = 5
 learning_rate = 1e-2
 # Discount factor reward
 discount_factor = 0.99
-# Input dimensions - left, right, left-angle, right-angle TODO
+# Input dimensions - left, right, left-angle, right-angle 
 input_dimensions = 4
 
 # A note on Tensorflow placeholders vs variables.
