@@ -106,13 +106,16 @@ with tf.Session() as sess:
 
         # Run the policy network and select an action
         tf_prob = sess.run(probability, feed_dict={observations: x})
-        action = 1 if np.random.uniform() < tf_prob else 0
+        action = 1 if np.random.uniform() < tf_prob else 0 # action is 0 or 1
 
         xs.append(x)  # observation
         y = 1 if action == 0 else 0  # fake label
         ys.append(y)
 
         # update teh environment to get new measurements
+
+        # Shape of the step:
+        # - observation is an array matching our input dimensions
         observation, reward, done, info = env.step(action)
         reward_sum += reward
         drs.append(reward)
